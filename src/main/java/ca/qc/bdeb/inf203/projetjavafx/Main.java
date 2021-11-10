@@ -1,5 +1,6 @@
 package ca.qc.bdeb.inf203.projetjavafx;
 
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -60,12 +61,31 @@ public class Main extends Application {
     private Scene sceneJeu(){
         var root=new Pane();
         Scene scene = new Scene(root, WIDTH, HEIGHT);
-        Partie partie=new Partie();
+        jouer();
         return scene;
     }
     private Scene sceneScore(){
         var root=new HBox();
         Scene scene = new Scene(root, WIDTH, HEIGHT);
         return scene;
+    }
+    private void jouer(){
+        var partie = new Partie();
+
+        var timer = new AnimationTimer() {
+
+            double lastTime = System.nanoTime();
+
+            @Override
+            public void handle(long now) {
+                double dt = (now - lastTime) * 1e-9;
+
+                //partie.update(dt);
+                //partie.draw(context);
+
+                lastTime = now;
+            }
+        };
+        timer.start();
     }
 }
