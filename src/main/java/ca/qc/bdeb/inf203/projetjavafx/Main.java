@@ -61,7 +61,7 @@ public class Main extends Application {
     private Scene sceneJeu(){
         var root=new Pane();
         Scene scene = new Scene(root, WIDTH, HEIGHT);
-        jouer();
+        jouer(root);
         return scene;
     }
     private Scene sceneScore(){
@@ -69,7 +69,10 @@ public class Main extends Application {
         Scene scene = new Scene(root, WIDTH, HEIGHT);
         return scene;
     }
-    private void jouer(){
+    private void jouer(Pane root){
+        var canvas = new Canvas(WIDTH, HEIGHT);
+        root.getChildren().add(canvas);
+        var context = canvas.getGraphicsContext2D();
         var partie = new Partie();
 
         var timer = new AnimationTimer() {
@@ -80,8 +83,8 @@ public class Main extends Application {
             public void handle(long now) {
                 double dt = (now - lastTime) * 1e-9;
 
-                //partie.update(dt);
-                //partie.draw(context);
+                partie.update(dt);
+                partie.draw(context);
 
                 lastTime = now;
             }
